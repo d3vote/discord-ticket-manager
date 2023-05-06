@@ -3,7 +3,7 @@ const { ButtonStyle, TextInputStyle } = Discord;
 
 export default {
   PREFIX: "!",
-  TOKEN: "ODYzNTA4MjA4MDE0MTk2NzM2.G-p42Q.czFpld61IV7MMdZXv9hoveGRy9db50we6UJR80",
+  TOKEN: "YOUR_TOKEN",
   ACTIVITY: { NAME: "", TYPE: "PLAYING" },
   GUILD_ID: "1096872981453615155",
   TICKET: {
