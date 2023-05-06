@@ -33,6 +33,18 @@ const archiveTicket = async (interaction, Parent, Bot) => {
   await interaction.channel.setName(
       interaction.channel.name.replace("заявка", "архив")
   );
+
+  // Update the user's permission to not view the channel
+  let username = interaction.channel.name.replace("архив-", "");
+  const members = await interaction.guild.members.fetch();
+  const member = members.find((m) => m.user.username.toLowerCase() === username);
+
+  if (member) {
+    await interaction.channel.permissionOverwrites.edit(member.user.id, {
+      VIEW_CHANNEL: false,
+    });
+  }
+
   await interaction.message.edit({
     embeds: [
       Utils.embed(
@@ -44,11 +56,13 @@ const archiveTicket = async (interaction, Parent, Bot) => {
     ],
     components: [],
   });
+
   await interaction.followUp({
     content: `Заявка была архивирована.`,
     ephemeral: true,
   });
 };
+
 
 export default (Bot) => {
   Bot.on("interactionCreate", async (interaction) => {
@@ -161,17 +175,29 @@ export default (Bot) => {
           ],
         });
 
-        interaction.channel.send({
-          content: `Салам, <@${interaction.user.id}>, ты был принят в фаму.`,
-        });
-
-        interaction.channel.send({
-          content: `Заявка будет архивирована в течении 12 часов`,
-        });
+        let role = interaction.guild.roles.cache.get("1104016659930415165");
+        let username = interaction.channel.name.replace("заявка-", "");
+        const members = await interaction.guild.members.fetch();
+        const member = members.find(
+            (m) => m.user.username.toLowerCase() === username
+        );
+        if (member) {
+          try {
+            await member.roles.add(role); // Change this line to use member.roles.add instead of member.roles.cache.add
+            console.log(`Role added to user ${username}`);
+            interaction.channel.send({
+              content: `Салам, <@${member.user.id}>, ты был принят в фаму. \nЗаявка будет архивирована в течении 12 часов`,
+            });
+          } catch (error) {
+            console.error(`Failed to add role to user ${username}:`, error);
+          }
+        } else {
+          console.log(`User with username "${username}" not found.`);
+        }
 
         setTimeout(() => {
           try {
-            archiveTicket(interaction, Parent);
+            archiveTicket(interaction, Parent, Bot);
           } catch (e) {
             console.error(e);
           }
@@ -226,9 +252,22 @@ export default (Bot) => {
         ephemeral: true,
       });
 
-      interaction.channel.send({
-        content: `<@${interaction.user.id}>, заявка отклонена. Ты можешь обсудить данное решение в этом канале.`,
-      });
+      let username = interaction.channel.name.replace("заявка-", "");
+      const members = await interaction.guild.members.fetch();
+      const member = members.find(
+          (m) => m.user.username.toLowerCase() === username
+      );
+      if (member) {
+        try {
+          interaction.channel.send({
+            content: `<@${member.user.id}>, твоя заявка была отклонена.`,
+          });
+        } catch (error) {
+          console.error(`Failed to find user ${username}:`, error);
+        }
+      } else {
+        console.log(`User with username "${username}" not found.`);
+      }
 
       interaction.channel.send({
         content: `Заявка будет архивирована в течении 12 часов`,
