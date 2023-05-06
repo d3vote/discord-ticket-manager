@@ -96,7 +96,7 @@ class Utils {
 
     let Modals = new ModalBuilder()
       .setCustomId("ticket")
-      .setTitle("Ticket Creation Request");
+      .setTitle("Заявка в семью NoName");
 
     let Row = [];
     Inputs.map((x) => Row.push(new ActionRowBuilder().addComponents([x])));
