@@ -1,19 +1,12 @@
-### 🎫 Discord Modals Simple Ticket Bot:
+### Discord Ticket Manager Bot
 
-#### Again, a bot infrastructure I made in my spare time, I actually made it for my own server, but I thought and shared it with people, I hope it can be useful for you, good coding.
+## Credits go to [feyit](https://github.com/feyit)
 
-<hr />
+This project is fun project for a friend of mine. Mainly I have used feyit's [Discord Ticket Bot](https://github.com/feyit/ticket-bot)
+The project has been modified by adding some extra features and customizations.
 
-### Setup:
+## Install
 
-#### Hey now there's a video to use the bot you can watch: https://youtu.be/gv94bxO-jo0
-
-#### Note: You must have Node.js installed on your computer. (Download link if not installed https://nodejs.org)
-
-#### 1 - Open a terminal and type `npm install yarn --g` and wait for it to install.
-
-#### 2 - Open terminal in infrastructure file, type `yarn install` and install all necessary modules.
-
-#### 3 - After installing the modules, fill in the `config.js` file.
-
-#### 4 - After doing the above 3 items, open a terminal in the folder and type `node src/index.js` then your bot will run actively. (Instead of opening a terminal, you can create a .bat file and type the command you will type in the terminal.)
+1 - Open a terminal and type npm install yarn --g and wait for it to install.
+2 - Open terminal in infrastructure file, type yarn install and install all necessary modules.
+3 - After installing the modules, fill in the config.js file.
